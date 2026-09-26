@@ -11,8 +11,8 @@ from app.application.conversation_memory import (
     ConversationMemory,
 )
 
-from app.application.conversation_memory import (
-    ConversationMemory,
+from app.application.friendly_conversation import (
+    FriendlyConversationService,
 )
 
 from app.ai.recipe_result_composer import (
@@ -117,6 +117,9 @@ class ChatOrchestrator:
         conversation_memory:
             ConversationMemory | None = None,
 
+        friendly_conversation:
+            FriendlyConversationService | None = None,
+
         financial_agent:
             FinancialAgent | None = None,
 
@@ -154,6 +157,11 @@ class ChatOrchestrator:
             or ConversationMemory(
                 max_recent_turns=6,
             )
+        )
+
+        self.friendly_conversation = (
+            friendly_conversation
+            or FriendlyConversationService()
         )
 
         self.recipe_executor = (
@@ -213,6 +221,59 @@ class ChatOrchestrator:
             raise ValueError(
                 "Message cannot be empty."
             )
+
+        # =========================================
+        # FRIENDLY / SOCIAL FAST PATH
+        #
+        # Pure social messages should not pay the
+        # latency/token cost of the financial pipeline.
+        # =========================================
+
+        friendly_reply = (
+            self.friendly_conversation
+            .try_reply(
+                original_message
+            )
+        )
+
+        if friendly_reply is not None:
+
+            result = ChatResult(
+                message=original_message,
+
+                reply=(
+                    friendly_reply.reply
+                ),
+
+                route="social",
+
+                route_confidence=1.0,
+
+                route_reason=(
+                    "Matched deterministic "
+                    "friendly-conversation intent: "
+                    f"{friendly_reply.intent}"
+                ),
+
+                agent_task=None,
+
+                plan=None,
+
+                execution=None,
+
+                response_source=(
+                    "friendly_conversation"
+                ),
+            )
+
+            self._remember_turn(
+                user_message=(
+                    original_message
+                ),
+                result=result,
+            )
+
+            return result
 
         # =========================================
         # CONVERSATION REASONING
@@ -304,11 +365,27 @@ class ChatOrchestrator:
         # UPDATE WORKING MEMORY
         # =========================================
 
+        self._remember_turn(
+            user_message=(
+                original_message
+            ),
+            result=result,
+        )
+
+        return result
+
+    def _remember_turn(
+        self,
+        *,
+        user_message: str,
+        result: ChatResult,
+    ) -> None:
+
         try:
 
             self.conversation_memory.remember(
                 user_message=(
-                    original_message
+                    user_message
                 ),
                 assistant_reply=(
                     result.reply
@@ -335,8 +412,6 @@ class ChatOrchestrator:
                 f"{type(exc).__name__}: {exc}"
             )
 
-        return result
-
     def _handle_core(
         self,
         message: str,
@@ -347,32 +422,12 @@ class ChatOrchestrator:
             .context()
         )
 
-        result = self._handle_once(
+        return self._handle_once(
             message=message,
             conversation_context=(
                 conversation_context
             ),
         )
-
-        self.conversation_memory.remember(
-            user_message=(
-                result.message
-            ),
-            assistant_reply=(
-                result.reply
-            ),
-            response_source=(
-                result.response_source
-            ),
-            plan=(
-                result.plan
-            ),
-            execution=(
-                result.execution
-            ),
-        )
-
-        return result
 
     def _handle_once(
         self,
