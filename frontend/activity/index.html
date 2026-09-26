@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Activity | MizanAI</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            background: #f7f7f7;
+
+            color: #111;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
+
+        .navbar {
+            height: 76px;
+
+            background: white;
+
+            border-bottom:
+                1px solid #eeeeee;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            padding:
+                0 40px;
+        }
+
+        .brand {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav a {
+            text-decoration: none;
+
+            color: #555;
+
+            padding:
+                9px 15px;
+
+            border-radius: 10px;
+        }
+
+        .nav a:hover {
+            background: #f1f1f1;
+        }
+
+        .nav a.active {
+            background: #111;
+            color: white;
+        }
+
+
+        /* =========================
+           PAGE
+        ========================= */
+
+        .container {
+            max-width: 1000px;
+
+            margin:
+                0 auto;
+
+            padding:
+                40px 24px;
+        }
+
+        .page-title {
+            margin-bottom: 30px;
+        }
+
+        .page-title h1 {
+            margin: 0;
+
+            font-size: 30px;
+        }
+
+        .page-title p {
+            color: #777;
+
+            margin-top: 8px;
+        }
+
+
+        /* =========================
+           SUMMARY
+        ========================= */
+
+        .summary {
+            background: white;
+
+            border:
+                1px solid #eeeeee;
+
+            border-radius: 18px;
+
+            padding:
+                20px 24px;
+
+            margin-bottom: 22px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .summary-label {
+            color: #777;
+
+            font-size: 13px;
+        }
+
+        .summary-value {
+            font-size: 23px;
+
+            font-weight: 700;
+
+            margin-top: 5px;
+        }
+
+
+        /* =========================
+           ACTIVITY LIST
+        ========================= */
+
+        .activity-list {
+            background: white;
+
+            border:
+                1px solid #eeeeee;
+
+            border-radius: 18px;
+
+            overflow: hidden;
+        }
+
+        .transaction {
+            padding:
+                18px 22px;
+
+            border-bottom:
+                1px solid #eeeeee;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+        }
+
+        .transaction:last-child {
+            border-bottom: none;
+        }
+
+        .transaction:hover {
+            background: #fafafa;
+        }
+
+
+        /* =========================
+           LEFT
+        ========================= */
+
+        .transaction-main {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+        .icon {
+            width: 44px;
+            height: 44px;
+
+            border-radius: 13px;
+
+            background: #f1f1f1;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-weight: bold;
+        }
+
+        .merchant {
+            font-size: 16px;
+
+            font-weight: 600;
+        }
+
+        .description {
+            font-size: 12px;
+
+            color: #888;
+
+            margin-top: 5px;
+        }
+
+        .concepts {
+            margin-top: 7px;
+
+            display: flex;
+
+            gap: 5px;
+
+            flex-wrap: wrap;
+        }
+
+        .concept {
+            font-size: 10px;
+
+            padding:
+                4px 7px;
+
+            border-radius: 8px;
+
+            background: #f0f0f0;
+
+            color: #666;
+        }
+
+
+        /* =========================
+           RIGHT
+        ========================= */
+
+        .transaction-value {
+            text-align: left;
+
+            min-width: 120px;
+        }
+
+        .amount {
+            font-size: 16px;
+
+            font-weight: 700;
+        }
+
+        .amount.debit {
+            color: #222;
+        }
+
+        .amount.credit {
+            color: #16843d;
+        }
+
+        .date {
+            margin-top: 6px;
+
+            font-size: 11px;
+
+            color: #999;
+        }
+
+
+        /* =========================
+           STATES
+        ========================= */
+
+        .loading,
+        .empty,
+        .error {
+            padding: 50px;
+
+            text-align: center;
+
+            color: #777;
+        }
+
+
+        @media (
+            max-width: 600px
+        ) {
+
+            .navbar {
+                padding:
+                    0 18px;
+            }
+
+            .container {
+                padding:
+                    25px 14px;
+            }
+
+            .transaction {
+                padding:
+                    16px;
+            }
+
+            .description {
+                max-width: 200px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="brand">
+        MizanAI
+    </div>
+
+
+    <nav class="nav">
+
+        <a href="/">
+            المحادثة
+        </a>
+
+        <a
+            href="/activity/"
+            class="active"
+        >
+            النشاط
+        </a>
+
+    </nav>
+
+</header>
+
+
+<main class="container">
+
+    <section class="page-title">
+
+        <h1>
+            النشاط
+        </h1>
+
+        <p>
+            جميع عملياتك المالية المسجلة في Mizan.
+        </p>
+
+    </section>
+
+
+    <section class="summary">
+
+        <div>
+
+            <div class="summary-label">
+                العمليات المعروضة
+            </div>
+
+            <div
+                id="count"
+                class="summary-value"
+            >
+                —
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section
+        id="activity"
+        class="activity-list"
+    >
+
+        <div class="loading">
+            جاري تحميل العمليات...
+        </div>
+
+    </section>
+
+</main>
+
+
+<script>
+
+const activityElement =
+    document.getElementById(
+        "activity"
+    );
+
+const countElement =
+    document.getElementById(
+        "count"
+    );
+
+
+function formatMoney(
+    amountMinor,
+    currency,
+    direction
+) {
+
+    const amount =
+        amountMinor / 100;
+
+    const formatted =
+        new Intl.NumberFormat(
+            "ar-SA",
+            {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            }
+        ).format(
+            amount
+        );
+
+
+    const sign =
+        direction === "credit"
+        ? "+"
+        : "-";
+
+
+    if (
+        currency === "SAR"
+    ) {
+
+        return (
+            `${sign}${formatted} ريال`
+        );
+    }
+
+
+    return (
+        `${sign}${formatted} ${currency}`
+    );
+}
+
+
+function formatDate(
+    isoDate
+) {
+
+    const date =
+        new Date(
+            isoDate
+        );
+
+
+    return (
+        new Intl.DateTimeFormat(
+            "ar-SA",
+            {
+                day: "numeric",
+                month: "short",
+                year: "numeric",
+                hour: "numeric",
+                minute: "2-digit"
+            }
+        ).format(
+            date
+        )
+    );
+}
+
+
+function transactionIcon(
+    nature
+) {
+
+    if (
+        nature === "income"
+    ) {
+        return "↑";
+    }
+
+    if (
+        nature === "refund"
+    ) {
+        return "↩";
+    }
+
+    if (
+        nature === "transfer"
+    ) {
+        return "⇄";
+    }
+
+    return "↓";
+}
+
+
+function renderTransaction(
+    transaction
+) {
+
+    const element =
+        document.createElement(
+            "div"
+        );
+
+    element.className =
+        "transaction";
+
+
+    const concepts =
+        transaction.concepts
+        .map(
+            concept =>
+                `<span class="concept">
+                    ${escapeHtml(concept)}
+                </span>`
+        )
+        .join("");
+
+
+    const merchant =
+        transaction.merchant_raw_name
+        || "عملية مالية";
+
+
+    const description =
+        transaction.raw_description
+        || "";
+
+
+    element.innerHTML = `
+
+        <div class="transaction-main">
+
+            <div class="icon">
+                ${transactionIcon(
+                    transaction.financial_nature
+                )}
+            </div>
+
+
+            <div>
+
+                <div class="merchant">
+                    ${escapeHtml(
+                        merchant
+                    )}
+                </div>
+
+
+                <div class="description">
+                    ${escapeHtml(
+                        description
+                    )}
+                </div>
+
+
+                <div class="concepts">
+                    ${concepts}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="transaction-value">
+
+            <div
+                class="
+                    amount
+                    ${transaction.direction}
+                "
+            >
+                ${formatMoney(
+                    transaction.amount_minor,
+                    transaction.currency,
+                    transaction.direction
+                )}
+            </div>
+
+
+            <div class="date">
+                ${formatDate(
+                    transaction.occurred_at_utc
+                )}
+            </div>
+
+        </div>
+
+    `;
+
+
+    return element;
+}
+
+
+function escapeHtml(
+    value
+) {
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+    div.textContent =
+        value ?? "";
+
+    return div.innerHTML;
+}
+
+
+async function loadActivity() {
+
+    try {
+
+        const response =
+            await fetch(
+                "/api/activity?limit=100"
+            );
+
+
+        if (
+            !response.ok
+        ) {
+
+            throw new Error(
+                "Unable to load activity"
+            );
+        }
+
+
+        const data =
+            await response.json();
+
+
+        countElement.textContent =
+            data.count;
+
+
+        activityElement.innerHTML =
+            "";
+
+
+        if (
+            data.transactions.length
+            === 0
+        ) {
+
+            activityElement.innerHTML = `
+                <div class="empty">
+                    لا توجد عمليات حتى الآن.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        for (
+            const transaction
+            of data.transactions
+        ) {
+
+            activityElement.appendChild(
+                renderTransaction(
+                    transaction
+                )
+            );
+        }
+
+    }
+
+    catch (
+        error
+    ) {
+
+        console.error(
+            error
+        );
+
+
+        activityElement.innerHTML = `
+            <div class="error">
+                حدث خطأ أثناء تحميل العمليات.
+            </div>
+        `;
+    }
+}
+
+
+loadActivity();
+
+</script>
+
+
+</body>
+</html>

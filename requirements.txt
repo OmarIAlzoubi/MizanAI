@@ -1,0 +1,6 @@
+openai
+python-dotenv
+pydantic>=2,<3
+fastapi
+uvicorn[standard]
+PyMuPDF>=1.24

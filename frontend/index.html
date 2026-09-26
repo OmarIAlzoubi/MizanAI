@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>MizanAI</title>
+
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/customize.css">
+    <link rel="stylesheet" href="/css/chat.css?v=chat3">
+</head>
+
+<body>
+
+<div class="shell">
+
+    <header class="topbar">
+        <div class="brandbox">
+            <div class="logo">M</div>
+
+            <div>
+                <div class="brand">MizanAI</div>
+                <div class="brand-subtitle">
+                    صحتك المالية بوضوح
+                </div>
+            </div>
+        </div>
+
+        <div class="top-actions">
+            <a class="pill" href="/activity/">
+                النشاط
+            </a>
+
+            <button
+                class="pill customize-toggle"
+                id="customize-toggle"
+                type="button"
+            >
+                تخصيص
+            </button>
+
+            <div class="pill status-pill">
+                <span class="status-dot"></span>
+                متصل
+            </div>
+        </div>
+    </header>
+
+
+    <div
+        class="edit-hint"
+        id="edit-hint"
+        aria-hidden="true"
+    >
+        <span>
+            اسحب البطاقة وسيظهر خط أزرق لمكانها الجديد · الصغير نصف الافتراضي · الكبير ضعفه
+        </span>
+
+        <div class="edit-hint-actions">
+
+            <button
+                class="add-widget-button"
+                id="add-widget"
+                type="button"
+            >
+                <span aria-hidden="true">＋</span>
+                إضافة بطاقة
+            </button>
+
+            <button
+                id="reset-layout"
+                type="button"
+            >
+                إعادة الضبط
+            </button>
+
+        </div>
+    </div>
+
+
+    <section class="hero">
+
+        <div class="hello">
+            أهلاً عمر
+        </div>
+
+        <div class="hero-label">
+            رصيدك الحالي
+        </div>
+
+        <div class="balance">
+            <strong id="balance-number">
+                —
+            </strong>
+
+            <span id="balance-currency">
+                ر.س
+            </span>
+        </div>
+
+        <div
+            class="last-update"
+            id="last-update"
+        >
+            جاري تحميل البيانات…
+        </div>
+
+    </section>
+
+
+    <main class="dashboard-grid" id="dashboard-grid">
+
+        <!-- الإنفاق هذا الشهر -->
+        <article
+            class="card"
+            data-card-id="spending"
+            data-size="medium"
+            data-accent="green"
+        >
+            <div class="card-head">
+
+                <div>
+                    <div class="card-title">
+                        الإنفاق هذا الشهر
+                    </div>
+
+                    <div class="card-subtitle">
+                        من بداية الشهر حتى آخر بيانات متاحة
+                    </div>
+                </div>
+
+                <div
+                    class="card-period"
+                    id="spending-period"
+                >
+                    —
+                </div>
+
+            </div>
+
+
+            <div class="spending-content">
+
+                <div class="spending-main">
+
+                    <div
+                        class="card-value"
+                        id="spending-amount"
+                    >
+                        —
+                        <small>ر.س</small>
+                    </div>
+
+                    <div
+                        class="card-change spending-comparison"
+                        id="spending-comparison"
+                    >
+                        —
+                    </div>
+
+
+                    <div class="spending-insights">
+
+                        <div
+                            class="spending-insight"
+                            id="spending-daily-average"
+                        >
+                            —
+                        </div>
+
+                        <div
+                            class="spending-insight"
+                            id="spending-transactions"
+                        >
+                            —
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="spending-chart-side">
+
+                    <div
+                        class="line-chart"
+                        id="spending-trend"
+                        aria-label="اتجاه الإنفاق اليومي"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="ask-card"
+                type="button"
+                data-question="حلل صرفي هذا الشهر ووضح لي أهم التغيرات"
+            >
+                اسأل Mizan
+            </button>
+
+        </article>
+
+
+        <!-- التصنيفات -->
+        <article
+            class="card"
+            data-card-id="concepts"
+            data-size="medium"
+            data-accent="violet"
+        >
+            <div class="card-head">
+                <div>
+                    <div class="card-title">
+                        أبرز التصنيفات
+                    </div>
+
+                    <div class="card-subtitle">
+                        أكثر المفاهيم ظهورًا في مصروفك
+                    </div>
+                </div>
+
+                <div class="card-period">
+                    هذا الشهر
+                </div>
+            </div>
+
+            <div
+                class="concept-list"
+                id="concept-list"
+            ></div>
+
+            <div class="card-footnote">
+                التصنيفات متعددة الوسوم وقد تتداخل؛ لذلك لا تُعرض كنسب تجمع إلى 100٪.
+            </div>
+
+            <button
+                class="ask-card"
+                type="button"
+                data-question="ايش أبرز أنماط وتصنيفات صرفي هذا الشهر؟"
+            >
+                اسأل Mizan
+            </button>
+        </article>
+
+
+        <!-- التجار -->
+        <article
+            class="card"
+            data-card-id="merchants"
+            data-size="medium"
+            data-accent="amber"
+        >
+            <div class="card-head">
+                <div>
+                    <div class="card-title">
+                        أعلى التجار
+                    </div>
+
+                    <div class="card-subtitle">
+                        الجهات الأعلى في الإنفاق
+                    </div>
+                </div>
+
+                <div
+                    class="card-period"
+                    id="merchants-period"
+                >
+                    —
+                </div>
+            </div>
+
+            <div
+                class="merchant-list"
+                id="merchant-list"
+            ></div>
+
+            <button
+                class="ask-card"
+                type="button"
+                data-question="مين أكثر التجار اللي صرفت عندهم هذا الشهر؟"
+            >
+                اسأل Mizan
+            </button>
+        </article>
+
+
+        <!-- آخر 7 أيام -->
+        <article
+            class="card"
+            data-card-id="daily"
+            data-size="medium"
+            data-accent="blue"
+        >
+            <div class="card-head">
+                <div>
+                    <div class="card-title">
+                        المصروف اليومي
+                    </div>
+
+                    <div class="card-subtitle">
+                        آخر 7 أيام من البيانات المتاحة
+                    </div>
+                </div>
+
+                <div class="card-period">
+                    7 أيام
+                </div>
+            </div>
+
+            <div
+                class="card-value"
+                id="daily-highest"
+            >
+                —
+                <small>ر.س</small>
+            </div>
+
+            <div
+                class="card-change"
+                id="daily-highest-note"
+            >
+                أعلى يوم إنفاق
+            </div>
+
+            <div
+                class="bar-chart"
+                id="daily-bars"
+                aria-label="المصروف اليومي"
+            ></div>
+
+            <button
+                class="ask-card"
+                type="button"
+                data-question="اي يوم كان أعلى صرف عندي مؤخرا وليش؟"
+            >
+                اسأل Mizan
+            </button>
+        </article>
+
+
+        <!-- التدفق -->
+        <article
+            class="card"
+            data-card-id="cashflow"
+            data-size="medium"
+            data-accent="rose"
+        >
+            <div class="card-head">
+                <div>
+                    <div class="card-title">
+                        التدفق النقدي
+                    </div>
+
+                    <div class="card-subtitle">
+                        جميع الحركات الداخلة والخارجة
+                    </div>
+                </div>
+
+                <div
+                    class="card-period"
+                    id="cashflow-period"
+                >
+                    —
+                </div>
+            </div>
+
+            <div class="cash-grid">
+                <div class="cash-box">
+                    <div class="cash-label">
+                        الداخل
+                    </div>
+
+                    <div
+                        class="cash-value"
+                        id="cash-in"
+                    >
+                        —
+                    </div>
+                </div>
+
+                <div class="cash-box">
+                    <div class="cash-label">
+                        الخارج
+                    </div>
+
+                    <div
+                        class="cash-value"
+                        id="cash-out"
+                    >
+                        —
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="card-change"
+                id="cash-net"
+            >
+                —
+            </div>
+
+            <button
+                class="ask-card"
+                type="button"
+                data-question="حلل لي التدفق النقدي عندي بشكل مختصر"
+            >
+                اسأل Mizan
+            </button>
+        </article>
+
+
+        <!-- مؤشرات -->
+        <article
+            class="card"
+            data-card-id="metrics"
+            data-size="medium"
+            data-accent="green"
+        >
+            <div class="card-head">
+                <div>
+                    <div class="card-title">
+                        مؤشرات سريعة
+                    </div>
+
+                    <div class="card-subtitle">
+                        مبنية على مصروفك الفعلي
+                    </div>
+                </div>
+
+                <div class="card-period">
+                    هذا الشهر
+                </div>
+            </div>
+
+            <div class="quick-grid">
+
+                <div class="quick-item">
+                    <div
+                        class="quick-value"
+                        id="transaction-count"
+                    >
+                        —
+                    </div>
+
+                    <div class="quick-label">
+                        عدد عمليات الإنفاق
+                    </div>
+                </div>
+
+                <div class="quick-item">
+                    <div
+                        class="quick-value"
+                        id="average-transaction"
+                    >
+                        —
+                    </div>
+
+                    <div class="quick-label">
+                        متوسط العملية
+                    </div>
+                </div>
+
+                <div class="quick-item">
+                    <div
+                        class="quick-value"
+                        id="largest-transaction"
+                    >
+                        —
+                    </div>
+
+                    <div class="quick-label">
+                        أكبر عملية
+                    </div>
+                </div>
+
+                <div class="quick-item">
+                    <div
+                        class="quick-value"
+                        id="coverage-day"
+                    >
+                        —
+                    </div>
+
+                    <div class="quick-label">
+                        آخر يوم بيانات
+                    </div>
+                </div>
+
+            </div>
+
+            <button
+                class="ask-card"
+                type="button"
+                data-question="اعطني ملخص سريع عن وضعي المالي الحالي"
+            >
+                اسأل Mizan
+            </button>
+        </article>
+
+
+        <!-- مقارنة الأشهر -->
+        <article
+            class="card is-disabled"
+            data-card-id="monthly_comparison"
+            data-size="medium"
+            data-accent="blue"
+        >
+            <div class="card-head">
+                <div>
+                    <div class="card-title">
+                        مقارنة الأشهر
+                    </div>
+
+                    <div class="card-subtitle">
+                        نفس المدة عبر الأشهر المتاحة
+                    </div>
+                </div>
+
+                <div class="card-period">
+                    نفس المدة
+                </div>
+            </div>
+
+            <div
+                class="month-compare-chart"
+                id="monthly-comparison-chart"
+            ></div>
+
+            <button
+                class="ask-card"
+                type="button"
+                data-question="قارن صرفي في نفس المدة بين آخر الأشهر المتاحة"
+            >
+                اسأل Mizan
+            </button>
+        </article>
+
+
+        <!-- BNPL -->
+        <article
+            class="card is-disabled"
+            data-card-id="bnpl"
+            data-size="small"
+            data-accent="amber"
+        >
+            <div class="card-head">
+                <div>
+                    <div class="card-title">
+                        التقسيط
+                    </div>
+
+                    <div class="card-subtitle">
+                        مدفوعات التقسيط هذا الشهر
+                    </div>
+                </div>
+
+                <div class="card-period">
+                    هذا الشهر
+                </div>
+            </div>
+
+            <div class="bnpl-content">
+
+                <div class="bnpl-main">
+
+                    <div
+                        class="card-value"
+                        id="bnpl-amount"
+                    >
+                        —
+                        <small>ر.س</small>
+                    </div>
+
+                    <div class="bnpl-summary">
+
+                        <div
+                            class="bnpl-meta"
+                            id="bnpl-meta"
+                        >
+                            —
+                        </div>
+
+                        <div
+                            class="bnpl-share"
+                            id="bnpl-share"
+                        >
+                            —
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="bnpl-providers"
+                    id="bnpl-providers"
+                ></div>
+
+            </div>
+
+            <button
+                class="ask-card"
+                type="button"
+                data-question="حلل مدفوعات التقسيط عندي هذا الشهر وهل هي مرتفعة؟"
+            >
+                اسأل Mizan
+            </button>
+        </article>
+
+
+        <!-- القهوة -->
+        <article
+            class="card is-disabled"
+            data-card-id="coffee"
+            data-size="small"
+            data-accent="coffee"
+        >
+            <div class="card-head">
+                <div>
+                    <div class="card-title">
+                        القهوة
+                    </div>
+
+                    <div class="card-subtitle">
+                        صرفك المرتبط بالقهوة
+                    </div>
+                </div>
+
+                <div class="card-period">
+                    هذا الشهر
+                </div>
+            </div>
+
+            <div
+                class="card-value"
+                id="coffee-amount"
+            >
+                —
+                <small>ر.س</small>
+            </div>
+
+            <div class="mini-stat-grid">
+                <div class="mini-stat">
+                    <span>العمليات</span>
+                    <strong id="coffee-count">—</strong>
+                </div>
+
+                <div class="mini-stat">
+                    <span>المتوسط</span>
+                    <strong id="coffee-average">—</strong>
+                </div>
+            </div>
+
+            <div
+                class="card-change"
+                id="coffee-top-merchant"
+            >
+                —
+            </div>
+
+            <button
+                class="ask-card"
+                type="button"
+                data-question="حلل صرفي على القهوة هذا الشهر"
+            >
+                اسأل Mizan
+            </button>
+        </article>
+
+
+        <!-- أكبر العمليات -->
+        <article
+            class="card is-disabled"
+            data-card-id="largest_transactions"
+            data-size="medium"
+            data-accent="rose"
+        >
+            <div class="card-head">
+                <div>
+                    <div class="card-title">
+                        أكبر العمليات
+                    </div>
+
+                    <div class="card-subtitle">
+                        أعلى عمليات الإنفاق هذا الشهر
+                    </div>
+                </div>
+
+                <div class="card-period">
+                    هذا الشهر
+                </div>
+            </div>
+
+            <div
+                class="largest-list"
+                id="largest-transactions-list"
+            ></div>
+
+            <button
+                class="ask-card"
+                type="button"
+                data-question="ايش أكبر عملياتي هذا الشهر وهل كانت استثنائية؟"
+            >
+                اسأل Mizan
+            </button>
+        </article>
+
+    </main>
+
+
+    <section
+        class="conversation-panel"
+        id="conversation-panel"
+    >
+        <div class="conversation-head">
+
+            <div class="conversation-identity">
+
+                <div class="conversation-avatar">
+                    M
+                </div>
+
+                <div class="conversation-title">
+                    <strong>MizanAI</strong>
+                    <span>مساعدك المالي</span>
+                </div>
+
+            </div>
+
+            <button
+                class="conversation-collapse"
+                id="conversation-collapse"
+                type="button"
+                aria-label="إخفاء المحادثة"
+                title="إخفاء المحادثة"
+            >
+                ⌄
+            </button>
+
+        </div>
+
+        <div
+            class="chat"
+            id="chat"
+        ></div>
+    </section>
+
+</div>
+
+
+<div class="composer-wrap">
+    <div class="composer">
+
+        <textarea
+            id="chat-input"
+            rows="1"
+            placeholder="اسأل Mizan عن أي شيء مالي..."
+        ></textarea>
+
+        <button
+            class="send-button"
+            id="send-button"
+            type="button"
+            aria-label="إرسال"
+        >
+            ↑
+        </button>
+
+    </div>
+</div>
+
+
+<script
+    type="module"
+    src="/js/app.js?v=chat3"
+></script>
+
+</body>
+</html>

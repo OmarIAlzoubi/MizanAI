@@ -1,0 +1,1803 @@
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 16px;
+}
+
+.card {
+    position: relative;
+
+    min-width: 0;
+    min-height: 270px;
+
+    padding: 20px;
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius: 22px;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.86
+        );
+
+    box-shadow:
+        var(--shadow);
+}
+
+.card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 150px;
+    height: 150px;
+
+    left: -70px;
+    bottom: -80px;
+
+    border-radius: 50%;
+
+    opacity: 0.10;
+
+    pointer-events: none;
+}
+
+.card[
+    data-accent="green"
+]::after {
+    background: var(--green);
+}
+
+.card[
+    data-accent="violet"
+]::after {
+    background: var(--violet);
+}
+
+.card[
+    data-accent="amber"
+]::after {
+    background: var(--amber);
+}
+
+.card[
+    data-accent="blue"
+]::after {
+    background: var(--blue);
+}
+
+.card[
+    data-accent="rose"
+]::after {
+    background: var(--rose);
+}
+
+.card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 14px;
+}
+
+.card-title {
+    font-size: 15px;
+    font-weight: 850;
+}
+
+.card-subtitle {
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.card-period {
+    flex: none;
+
+    padding:
+        6px
+        9px;
+
+    border-radius: 999px;
+
+    background: #f7f8f6;
+
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+.card-value {
+    margin-top: 18px;
+
+    direction: ltr;
+    text-align: right;
+
+    font-size: 27px;
+    font-weight: 850;
+
+    letter-spacing: -1px;
+
+    font-variant-numeric:
+        tabular-nums;
+}
+
+.card-value small {
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+.card-change {
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.card-footnote {
+    position: absolute;
+
+    right: 20px;
+    left: 90px;
+    bottom: 20px;
+
+    color: var(--muted);
+
+    font-size: 9px;
+    line-height: 1.6;
+}
+
+.ask-card {
+    position: absolute;
+
+    left: 15px;
+    bottom: 14px;
+
+    z-index: 2;
+
+    border: 0;
+
+    border-radius: 999px;
+
+    padding:
+        8px
+        11px;
+
+    background: #f2f4f1;
+
+    color: #555b56;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.ask-card:hover {
+    background: #e9ece8;
+}
+
+
+/* =========================================
+   SPENDING TREND
+========================================= */
+
+.line-chart {
+    height: 118px;
+
+    margin-top: 14px;
+
+    direction: ltr;
+}
+
+.line-chart svg {
+    width: 100%;
+    height: 100%;
+}
+
+.chart-gridline {
+    stroke: #ecefeb;
+
+    stroke-width: 1;
+}
+
+.trend-line {
+    fill: none;
+
+    stroke: var(--green);
+
+    stroke-width: 3;
+
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.trend-area {
+    fill:
+        rgba(
+            49,
+            143,
+            87,
+            0.10
+        );
+}
+
+.trend-dot {
+    fill: white;
+
+    stroke: var(--green);
+
+    stroke-width: 2.2;
+}
+
+
+/* =========================================
+   CONCEPTS
+========================================= */
+
+.concept-list {
+    display: grid;
+
+    gap: 16px;
+
+    margin-top: 23px;
+}
+
+.concept-row {
+    display: grid;
+
+    grid-template-columns:
+        minmax(
+            0,
+            1fr
+        )
+        auto;
+
+    gap:
+        7px
+        12px;
+}
+
+.concept-name {
+    min-width: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.concept-amount {
+    direction: ltr;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.concept-track {
+    grid-column: 1 / -1;
+
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: #f0f1ee;
+}
+
+.concept-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #7767d7,
+            #b5ace8
+        );
+}
+
+
+/* =========================================
+   MERCHANTS
+========================================= */
+
+.merchant-list {
+    display: grid;
+
+    gap: 15px;
+
+    margin-top: 19px;
+}
+
+.merchant-row {
+    display: grid;
+
+    grid-template-columns:
+        minmax(
+            0,
+            1fr
+        )
+        auto;
+
+    gap:
+        7px
+        12px;
+}
+
+.merchant-name {
+    min-width: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.merchant-amount {
+    direction: ltr;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+.merchant-track {
+    grid-column: 1 / -1;
+
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: #f0f1ee;
+}
+
+.merchant-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #d3a24f,
+            #edd28e
+        );
+}
+
+
+/* =========================================
+   DAILY
+========================================= */
+
+.bar-chart {
+    height: 115px;
+
+    margin-top: 20px;
+
+    display: flex;
+    align-items: end;
+
+    gap: 8px;
+
+    direction: ltr;
+}
+
+.daily-column {
+    flex: 1;
+
+    min-width: 0;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 6px;
+}
+
+.daily-bar {
+    width: 100%;
+
+    min-height: 5px;
+
+    border-radius:
+        7px
+        7px
+        3px
+        3px;
+
+    background:
+        linear-gradient(
+            #74a2e4,
+            #cbdaf2
+        );
+}
+
+.daily-label {
+    color: var(--muted);
+
+    font-size: 8px;
+}
+
+
+/* =========================================
+   CASH FLOW + QUICK
+========================================= */
+
+.cash-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 11px;
+
+    margin-top: 25px;
+}
+
+.cash-box,
+.quick-item {
+    padding: 14px;
+
+    border:
+        1px solid
+        var(--line);
+
+    border-radius: 15px;
+
+    background: #fafbf9;
+}
+
+.cash-label,
+.quick-label {
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+.cash-value,
+.quick-value {
+    margin-top: 6px;
+
+    direction: ltr;
+    text-align: right;
+
+    font-size: 18px;
+    font-weight: 850;
+
+    font-variant-numeric:
+        tabular-nums;
+}
+
+.quick-grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 10px;
+
+    margin-top: 22px;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-state {
+    margin-top: 25px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+@media (
+    max-width: 760px
+) {
+    .dashboard-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .card {
+        min-height: 255px;
+    }
+}
+
+/* =========================================
+   CUSTOMIZABLE IOS-LIKE GRID — V3
+
+   Logical sizes:
+   small   = 1/4 page
+   medium  = 1/2 page
+   large   = full page
+
+   This gives an exact 1 : 2 : 4 width ratio.
+========================================= */
+.dashboard-grid {
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0, 1fr)
+        );
+
+    grid-auto-flow: row;
+    align-items: start;
+}
+
+.card {
+    transition:
+        box-shadow
+        260ms
+        var(--spring),
+        border-color
+        260ms
+        ease,
+        opacity
+        220ms
+        ease;
+
+    contain:
+        layout
+        paint;
+}
+
+.card[data-size="small"] {
+    grid-column: span 1;
+    min-height: 245px;
+}
+
+.card[data-size="medium"] {
+    grid-column: span 2;
+    min-height: 270px;
+}
+
+.card[data-size="large"] {
+    grid-column: 1 / -1;
+    min-height: 330px;
+}
+
+/* Small cards become denser, not merely narrower. */
+.card[data-size="small"] .card-subtitle,
+.card[data-size="small"] .card-footnote {
+    display: none;
+}
+
+.card[data-size="small"] .card-title {
+    font-size: 14px;
+}
+
+.card[data-size="small"] .card-value {
+    font-size: 23px;
+}
+
+.card[data-size="small"] .concept-row:nth-child(n + 4),
+.card[data-size="small"] .merchant-row:nth-child(n + 4) {
+    display: none;
+}
+
+.card[data-size="small"] .quick-grid {
+    grid-template-columns: 1fr;
+}
+
+.card[data-size="small"] .quick-item:nth-child(n + 3) {
+    display: none;
+}
+
+.card[data-size="small"] .cash-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+}
+
+.card[data-size="large"] .line-chart {
+    height: 168px;
+}
+
+.card[data-size="large"] .bar-chart {
+    height: 160px;
+}
+
+.ask-card {
+    transition:
+        transform
+        180ms
+        var(--spring),
+        background
+        180ms
+        ease,
+        opacity
+        180ms
+        ease;
+}
+
+.ask-card:active {
+    transform: scale(0.95);
+}
+
+/*
+   On tablets we keep the same meaning as much as possible:
+   small = half row, medium/large = full row.
+*/
+@media (
+    min-width: 761px
+) and (
+    max-width: 920px
+) {
+    .dashboard-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+    }
+
+    .card[data-size="small"] {
+        grid-column: span 1;
+    }
+
+    .card[data-size="medium"],
+    .card[data-size="large"] {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (
+    max-width: 760px
+) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card[data-size="small"],
+    .card[data-size="medium"],
+    .card[data-size="large"] {
+        grid-column: 1;
+        min-height: 255px;
+    }
+
+    .card[data-size="small"] {
+        min-height: 220px;
+    }
+
+    .card[data-size="large"] {
+        min-height: 320px;
+    }
+}
+
+
+/* =========================================
+   V4 — EXACT IOS-LIKE WIDGET GEOMETRY
+
+   Desktop:
+   small   = 1 slot
+   medium  = 2 slots
+   large   = 4 slots
+
+   All three sizes use the SAME row height.
+   Therefore:
+   2 small  = 1 medium
+   2 medium = 1 large
+
+   No content is allowed to change the card's
+   outer geometry.
+========================================= */
+
+.dashboard-grid {
+    --widget-gap: 16px;
+    --widget-height: 290px;
+
+    grid-template-columns:
+        repeat(
+            4,
+            minmax(0, 1fr)
+        );
+
+    grid-auto-rows:
+        var(--widget-height);
+
+    gap:
+        var(--widget-gap);
+
+    grid-auto-flow:
+        row;
+
+    align-items:
+        stretch;
+}
+
+.card,
+.card[data-size="small"],
+.card[data-size="medium"],
+.card[data-size="large"] {
+    min-height: 0;
+    height: 100%;
+}
+
+.card[data-size="small"] {
+    grid-column:
+        span 1;
+}
+
+.card[data-size="medium"] {
+    grid-column:
+        span 2;
+}
+
+.card[data-size="large"] {
+    grid-column:
+        span 4;
+}
+
+/*
+   Content density changes with size,
+   but the external card box never changes height.
+*/
+
+.card[data-size="small"] {
+    padding:
+        18px;
+}
+
+.card[data-size="small"]
+.card-subtitle,
+.card[data-size="small"]
+.card-footnote {
+    display:
+        none;
+}
+
+.card[data-size="small"]
+.card-title {
+    font-size:
+        14px;
+}
+
+.card[data-size="small"]
+.card-value {
+    margin-top:
+        14px;
+
+    font-size:
+        22px;
+}
+
+.card[data-size="small"]
+.line-chart {
+    height:
+        96px;
+
+    margin-top:
+        12px;
+}
+
+.card[data-size="small"]
+.bar-chart {
+    height:
+        100px;
+
+    margin-top:
+        14px;
+}
+
+.card[data-size="small"]
+.concept-list,
+.card[data-size="small"]
+.merchant-list {
+    margin-top:
+        16px;
+
+    gap:
+        12px;
+}
+
+.card[data-size="small"]
+.concept-row:nth-child(n + 4),
+.card[data-size="small"]
+.merchant-row:nth-child(n + 4) {
+    display:
+        none;
+}
+
+.card[data-size="small"]
+.quick-grid {
+    grid-template-columns:
+        1fr;
+
+    margin-top:
+        16px;
+}
+
+.card[data-size="small"]
+.quick-item:nth-child(n + 3) {
+    display:
+        none;
+}
+
+.card[data-size="small"]
+.cash-grid {
+    grid-template-columns:
+        1fr;
+
+    gap:
+        8px;
+
+    margin-top:
+        16px;
+}
+
+.card[data-size="small"]
+.cash-box {
+    padding:
+        10px;
+}
+
+.card[data-size="small"]
+.card-change {
+    white-space:
+        nowrap;
+
+    overflow:
+        hidden;
+
+    text-overflow:
+        ellipsis;
+}
+
+/*
+   A large card is exactly two default card widths,
+   not taller. More horizontal space is the benefit.
+*/
+
+.card[data-size="large"]
+.line-chart,
+.card[data-size="large"]
+.bar-chart {
+    height:
+        118px;
+}
+
+
+/* Tablet */
+@media (
+    min-width: 761px
+) and (
+    max-width: 920px
+) {
+    .dashboard-grid {
+        grid-template-columns:
+            repeat(
+                2,
+                minmax(0, 1fr)
+            );
+
+        --widget-height:
+            280px;
+    }
+
+    .card[data-size="small"] {
+        grid-column:
+            span 1;
+    }
+
+    .card[data-size="medium"],
+    .card[data-size="large"] {
+        grid-column:
+            span 2;
+    }
+}
+
+
+/*
+   On a one-column phone layout width cannot express
+   the 1:2:4 relationship, so size maps to height.
+*/
+@media (
+    max-width: 760px
+) {
+    .dashboard-grid {
+        display:
+            flex;
+
+        flex-direction:
+            column;
+
+        gap:
+            12px;
+    }
+
+    .card,
+    .card[data-size="small"],
+    .card[data-size="medium"],
+    .card[data-size="large"] {
+        width:
+            100%;
+
+        height:
+            auto;
+    }
+
+    .card[data-size="small"] {
+        min-height:
+            210px;
+    }
+
+    .card[data-size="medium"] {
+        min-height:
+            270px;
+    }
+
+    .card[data-size="large"] {
+        min-height:
+            340px;
+    }
+}
+
+
+/* =========================================
+   V6 — NEW WIDGETS
+========================================= */
+
+.card[data-accent="coffee"]::after {
+    background: var(--coffee);
+}
+
+.month-compare-chart {
+    height: 178px;
+    margin-top: 18px;
+
+    display: flex;
+    align-items: end;
+    gap: 12px;
+
+    direction: ltr;
+}
+
+.month-column {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 7px;
+}
+
+.month-bar-wrap {
+    width: 100%;
+    flex: 1;
+
+    display: flex;
+    align-items: end;
+}
+
+.month-bar {
+    width: 100%;
+    min-height: 5px;
+
+    border-radius: 10px 10px 4px 4px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #6f9ee4,
+            #bed3f3
+        );
+}
+
+.month-column.is-current .month-bar {
+    background:
+        linear-gradient(
+            180deg,
+            #2e8f56,
+            #a9d8b8
+        );
+}
+
+.month-amount {
+    color: #414641;
+    font-size: 9px;
+    font-weight: 750;
+
+    direction: ltr;
+}
+
+.month-label {
+    color: var(--muted);
+    font-size: 8px;
+}
+
+.provider-chips {
+    margin-top: 17px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.provider-chip {
+    max-width: 100%;
+
+    padding: 7px 9px;
+
+    border: 1px solid var(--line);
+    border-radius: 999px;
+
+    background: #fafbf9;
+
+    color: #555a56;
+    font-size: 9px;
+    font-weight: 750;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mini-stat-grid {
+    margin-top: 17px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.mini-stat {
+    padding: 11px;
+
+    border: 1px solid var(--line);
+    border-radius: 14px;
+
+    background: #fafbf9;
+}
+
+.mini-stat span {
+    display: block;
+
+    color: var(--muted);
+    font-size: 8px;
+}
+
+.mini-stat strong {
+    display: block;
+
+    margin-top: 5px;
+
+    direction: ltr;
+    text-align: right;
+
+    color: #343834;
+    font-size: 14px;
+    font-weight: 850;
+}
+
+.largest-list {
+    display: grid;
+    gap: 11px;
+
+    margin-top: 18px;
+}
+
+.largest-row {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr)
+        auto;
+
+    gap: 3px 12px;
+    align-items: center;
+
+    padding-bottom: 9px;
+
+    border-bottom:
+        1px solid
+        rgba(76, 83, 77, 0.08);
+}
+
+.largest-row:last-child {
+    border-bottom: 0;
+}
+
+.largest-merchant {
+    min-width: 0;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.largest-date {
+    color: var(--muted);
+    font-size: 8px;
+}
+
+.largest-amount {
+    grid-row: span 2;
+
+    direction: ltr;
+
+    font-size: 11px;
+    font-weight: 850;
+}
+
+.card[data-size="small"] .month-compare-chart {
+    height: 130px;
+    gap: 6px;
+}
+
+.card[data-size="small"] .month-amount {
+    display: none;
+}
+
+.card[data-size="small"] .largest-row:nth-child(n + 4) {
+    display: none;
+}
+
+.card[data-size="small"] .provider-chip:nth-child(n + 3) {
+    display: none;
+}
+
+
+/* =========================================
+   BNPL — BASE
+========================================= */
+
+.bnpl-content {
+    margin-top: 12px;
+
+    min-height: 165px;
+}
+
+.bnpl-main {
+    min-width: 0;
+}
+
+.bnpl-summary {
+    margin-top: 8px;
+}
+
+.bnpl-meta {
+    color: #555b56;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.bnpl-share {
+    width: max-content;
+
+    max-width: 100%;
+
+    margin-top: 8px;
+
+    padding:
+        6px
+        10px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(
+            211,
+            162,
+            79,
+            0.11
+        );
+
+    color: #8d682d;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+
+/* =========================================
+   PROVIDERS
+========================================= */
+
+.bnpl-providers {
+    display: grid;
+
+    gap: 16px;
+
+    margin-top: 20px;
+}
+
+.bnpl-provider {
+    min-width: 0;
+}
+
+.bnpl-provider-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 14px;
+
+    margin-bottom: 7px;
+}
+
+.bnpl-provider-title {
+    min-width: 0;
+
+    display: flex;
+    align-items: baseline;
+
+    gap: 7px;
+}
+
+.bnpl-provider-title strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-size: 11px;
+}
+
+.bnpl-provider-title span {
+    color: var(--muted);
+
+    font-size: 8px;
+}
+
+.bnpl-provider-amount {
+    flex: none;
+
+    direction: ltr;
+
+    color: #555a56;
+
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.bnpl-provider-track {
+    height: 9px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        rgba(
+            211,
+            162,
+            79,
+            0.11
+        );
+}
+
+.bnpl-provider-fill {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #d3a24f,
+            #edca83
+        );
+
+    transition:
+        width
+        600ms
+        cubic-bezier(
+            0.22,
+            1,
+            0.36,
+            1
+        );
+}
+/* =========================================
+   SMALL
+========================================= */
+
+.card[data-card-id="bnpl"][data-size="small"]
+.bnpl-content {
+    min-height: 0;
+}
+
+.card[data-card-id="bnpl"][data-size="small"]
+.bnpl-providers {
+    display: none;
+}
+
+.card[data-card-id="bnpl"][data-size="small"]
+.bnpl-meta {
+    font-size: 9px;
+}
+
+.card[data-card-id="bnpl"][data-size="small"]
+.bnpl-share {
+    margin-top: 7px;
+
+    padding:
+        5px
+        8px;
+
+    font-size: 8px;
+}
+/* =========================================
+   MEDIUM
+========================================= */
+
+.card[data-card-id="bnpl"][data-size="medium"]
+.bnpl-content {
+    display: block;
+}
+
+.card[data-card-id="bnpl"][data-size="medium"]
+.bnpl-providers {
+    margin-top: 16px;
+
+    gap: 11px;
+}
+
+.card[data-card-id="bnpl"][data-size="medium"]
+.bnpl-provider-track {
+    height: 7px;
+}
+/* =========================================
+   LARGE
+========================================= */
+
+.card[data-card-id="bnpl"][data-size="large"]
+.bnpl-content {
+    height:
+        calc(
+            100% - 58px
+        );
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(
+            220px,
+            0.75fr
+        )
+        minmax(
+            380px,
+            1.4fr
+        );
+
+    align-items: center;
+
+    gap: 64px;
+
+    margin-top: 0;
+
+    padding:
+        5px
+        22px
+        20px;
+}
+
+
+.card[data-card-id="bnpl"][data-size="large"]
+.bnpl-main {
+    align-self: center;
+}
+
+
+.card[data-card-id="bnpl"][data-size="large"]
+.card-value {
+    margin-top: 0;
+
+    font-size: 38px;
+}
+
+
+.card[data-card-id="bnpl"][data-size="large"]
+.bnpl-meta {
+    margin-top: 10px;
+
+    font-size: 11px;
+}
+
+
+.card[data-card-id="bnpl"][data-size="large"]
+.bnpl-share {
+    margin-top: 12px;
+
+    padding:
+        7px
+        11px;
+
+    font-size: 9px;
+}
+
+
+.card[data-card-id="bnpl"][data-size="large"]
+.bnpl-providers {
+    align-self: center;
+
+    margin-top: 0;
+
+    gap: 24px;
+}
+
+
+.card[data-card-id="bnpl"][data-size="large"]
+.bnpl-provider-head {
+    margin-bottom: 10px;
+}
+
+
+.card[data-card-id="bnpl"][data-size="large"]
+.bnpl-provider-title strong {
+    font-size: 12px;
+}
+
+
+.card[data-card-id="bnpl"][data-size="large"]
+.bnpl-provider-title span {
+    font-size: 9px;
+}
+
+
+.card[data-card-id="bnpl"][data-size="large"]
+.bnpl-provider-amount {
+    font-size: 11px;
+}
+
+
+.card[data-card-id="bnpl"][data-size="large"]
+.bnpl-provider-track {
+    height: 11px;
+}
+
+
+/* =========================================================
+   SPENDING WIDGET — SIZE-AWARE IOS-LIKE COMPOSITION
+   ========================================================= */
+
+.card[data-card-id="spending"] .spending-content {
+    min-width: 0;
+
+    margin-top: 8px;
+
+    display: grid;
+
+    gap: 12px;
+}
+
+.card[data-card-id="spending"] .spending-main {
+    min-width: 0;
+}
+
+.card[data-card-id="spending"] .spending-comparison {
+    margin-top: 8px;
+
+    color: #626963;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    line-height: 1.65;
+}
+
+.card[data-card-id="spending"] .spending-insights {
+    margin-top: 12px;
+
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 7px;
+}
+
+.card[data-card-id="spending"] .spending-insight {
+    max-width: 100%;
+
+    padding:
+        6px
+        10px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        rgba(
+            49,
+            143,
+            87,
+            0.085
+        );
+
+    color: #526158;
+
+    font-size: 8.5px;
+    font-weight: 800;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.card[data-card-id="spending"] .spending-chart-side {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+}
+
+.card[data-card-id="spending"] .spending-chart-side .line-chart {
+    width: 100%;
+}
+
+
+/* =========================================================
+   SMALL
+   ========================================================= */
+
+.card[data-card-id="spending"][data-size="small"]
+.spending-content {
+    margin-top: 7px;
+
+    gap: 7px;
+}
+
+.card[data-card-id="spending"][data-size="small"]
+.card-value {
+    margin-top: 0;
+
+    font-size: 24px;
+}
+
+.card[data-card-id="spending"][data-size="small"]
+.spending-comparison {
+    margin-top: 6px;
+
+    overflow: hidden;
+
+    font-size: 8.5px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.card[data-card-id="spending"][data-size="small"]
+.spending-insights {
+    display: none;
+}
+
+.card[data-card-id="spending"][data-size="small"]
+.spending-chart-side .line-chart {
+    height: 82px;
+
+    margin-top: 2px;
+}
+
+
+/* =========================================================
+   MEDIUM
+   ========================================================= */
+
+.card[data-card-id="spending"][data-size="medium"]
+.spending-content {
+    margin-top: 7px;
+
+    gap: 8px;
+}
+
+.card[data-card-id="spending"][data-size="medium"]
+.card-value {
+    margin-top: 0;
+
+    font-size: 29px;
+}
+
+.card[data-card-id="spending"][data-size="medium"]
+.spending-insights {
+    margin-top: 9px;
+}
+
+.card[data-card-id="spending"][data-size="medium"]
+.spending-chart-side .line-chart {
+    height: 86px;
+
+    margin-top: 0;
+}
+
+
+/* =========================================================
+   LARGE
+   ========================================================= */
+
+.card[data-card-id="spending"][data-size="large"]
+.spending-content {
+    height:
+        calc(
+            100% - 52px
+        );
+
+    min-height: 0;
+
+    margin-top: 0;
+
+    padding:
+        2px
+        20px
+        20px;
+
+    grid-template-columns:
+        minmax(
+            245px,
+            0.82fr
+        )
+        minmax(
+            0,
+            1.45fr
+        );
+
+    align-items: center;
+
+    gap: 42px;
+}
+
+.card[data-card-id="spending"][data-size="large"]
+.spending-main {
+    align-self: center;
+}
+
+.card[data-card-id="spending"][data-size="large"]
+.card-value {
+    margin-top: 0;
+
+    font-size: 42px;
+}
+
+.card[data-card-id="spending"][data-size="large"]
+.card-value small {
+    font-size: 13px;
+}
+
+.card[data-card-id="spending"][data-size="large"]
+.spending-comparison {
+    max-width: 320px;
+
+    margin-top: 10px;
+
+    font-size: 10px;
+
+    line-height: 1.7;
+}
+
+.card[data-card-id="spending"][data-size="large"]
+.spending-insights {
+    margin-top: 14px;
+}
+
+.card[data-card-id="spending"][data-size="large"]
+.spending-insight {
+    padding:
+        7px
+        11px;
+
+    font-size: 9px;
+}
+
+.card[data-card-id="spending"][data-size="large"]
+.spending-chart-side {
+    align-self: center;
+
+    padding-bottom: 22px;
+}
+
+.card[data-card-id="spending"][data-size="large"]
+.spending-chart-side .line-chart {
+    height: 150px;
+
+    margin-top: 0;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (
+    min-width: 761px
+) and (
+    max-width: 920px
+) {
+    .card[data-card-id="spending"][data-size="large"]
+    .spending-content {
+        grid-template-columns:
+            minmax(
+                210px,
+                0.9fr
+            )
+            minmax(
+                0,
+                1.15fr
+            );
+
+        gap: 24px;
+
+        padding-inline: 8px;
+    }
+
+    .card[data-card-id="spending"][data-size="large"]
+    .card-value {
+        font-size: 36px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (
+    max-width: 760px
+) {
+    .card[data-card-id="spending"][data-size="small"]
+    .spending-content,
+    .card[data-card-id="spending"][data-size="medium"]
+    .spending-content,
+    .card[data-card-id="spending"][data-size="large"]
+    .spending-content {
+        height: auto;
+
+        padding: 0;
+
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+    }
+
+    .card[data-card-id="spending"][data-size="large"]
+    .card-value {
+        font-size: 38px;
+    }
+
+    .card[data-card-id="spending"][data-size="large"]
+    .spending-chart-side {
+        padding-bottom: 28px;
+    }
+
+    .card[data-card-id="spending"][data-size="large"]
+    .spending-chart-side .line-chart {
+        height: 145px;
+    }
+}
+
