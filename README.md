@@ -799,6 +799,6 @@ You may view, use, modify, and distribute the software for permitted non-commerc
 
 **Commercial use of MizanAI, including commercial use of modified versions or derivative works based on this software, requires separate written permission from the copyright holder.**
 
-Copyright © 2026 Omar Al-Zoubi.
+Copyright Â© 2026 Omar Al-Zoubi.
 
 See [LICENSE](LICENSE) for the complete license terms.
