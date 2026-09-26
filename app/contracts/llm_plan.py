@@ -6,6 +6,7 @@ from pydantic import (
     ConfigDict,
     Field,
     PositiveInt,
+    field_validator,
     model_validator,
 )
 
@@ -357,6 +358,60 @@ class LLMActionPlan(StrictModel):
         min_length=1,
         max_length=300,
     )
+
+    @field_validator(
+        "route_reason",
+        mode="before",
+    )
+    @classmethod
+    def normalize_route_reason(
+        cls,
+        value,
+    ):
+        text = " ".join(
+            str(value or "").split()
+        )
+
+        if not text:
+            return (
+                "Route selected based on "
+                "current system capability."
+            )
+
+        if len(text) > 300:
+            return text[:297].rstrip() + "..."
+
+        return text
+
+
+
+    @field_validator(
+        "route_reason",
+        mode="before",
+    )
+    @classmethod
+    def normalize_route_reason(
+        cls,
+        value,
+    ):
+        text = " ".join(
+            str(value or "").split()
+        )
+
+        if not text:
+            return (
+                "Route selected based on "
+                "current system capability."
+            )
+
+        if len(text) > 300:
+            return (
+                text[:297].rstrip()
+                + "..."
+            )
+
+        return text
+
 
     agent_task: str | None = Field(
         default=None,

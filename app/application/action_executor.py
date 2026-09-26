@@ -1,7 +1,9 @@
 from app.contracts.action_plan import (
     ActionPlan,
+    ConversationResponseAction,
     CreateTransactionAction,
     QueryFinancialDataAction,
+    UpdateTransactionAction,
 )
 
 from app.contracts.results import (
@@ -32,6 +34,24 @@ class ActionExecutionError(Exception):
 
 
 class ActionExecutor:
+
+    def _execute_conversation_response(
+        self,
+        *,
+        action: ConversationResponseAction,
+    ) -> ActionExecutionResult:
+
+        return ActionExecutionResult(
+            action_id=action.action_id,
+            action_type="conversation_response",
+            data={
+                "mode":
+                    action.parameters.mode,
+
+                "topic":
+                    action.parameters.topic,
+            },
+        )
 
     def __init__(
         self,
@@ -175,6 +195,17 @@ class ActionExecutor:
                 )
             )
 
+
+        if isinstance(
+            action,
+            ConversationResponseAction,
+        ):
+
+            return (
+                self._execute_conversation_response(
+                    action=action
+                )
+            )
 
         raise ActionExecutionError(
             "Action type is not implemented "

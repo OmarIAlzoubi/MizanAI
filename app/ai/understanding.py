@@ -269,7 +269,7 @@ class UnderstandingService:
                 ),
 
                 prompt_cache_key=(
-                    "mizan-understanding-v4"
+                    "mizan-understanding-v5"
                 ),
             )
         )

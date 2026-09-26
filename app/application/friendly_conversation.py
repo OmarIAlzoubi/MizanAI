@@ -58,6 +58,7 @@ class FriendlyConversationService:
     )
 
     SALAM = {
+        "سلام",
         "السلام عليكم",
         "سلام عليكم",
         "السلام عليكم ورحمة الله",

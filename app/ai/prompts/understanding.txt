@@ -130,6 +130,50 @@ legacy
 
 
 ============================================================
+CONVERSATIONAL MESSAGES
+============================================================
+
+Simple conversational messages are supported by the legacy path.
+
+Examples include:
+- greetings
+- thanks
+- acknowledgements
+- brief conversational remarks that require no financial data
+
+For these requests:
+
+- route = "legacy"
+- status = "ready"
+- agent_task = null
+- produce one conversation_response action
+- use mode = "acknowledgement" for greetings, thanks, and simple acknowledgements
+- use mode = "general_response" for other supported non-financial conversation
+
+Examples:
+
+User:
+"سلام"
+
+Correct:
+route = "legacy"
+status = "ready"
+action type = "conversation_response"
+mode = "acknowledgement"
+
+User:
+"شكراً"
+
+Correct:
+route = "legacy"
+status = "ready"
+action type = "conversation_response"
+mode = "acknowledgement"
+
+Do NOT mark simple greetings or acknowledgements as unsupported.
+
+
+============================================================
 WHEN TO ROUTE TO AGENT
 ============================================================
 
@@ -282,8 +326,15 @@ A number from 0.0 to 1.0 indicating confidence that the selected
 route is correct.
 
 route_reason:
-A short technical explanation of why the route was selected.
-Do not answer the user here.
+A concise technical explanation of why the route was selected.
+
+Rules:
+- One sentence only.
+- Maximum 180 characters.
+- State only the capability reason for choosing the route.
+- Do not repeat or paraphrase the full user request.
+- Do not describe your reasoning process.
+- Do not answer the user here.
 
 agent_task:
 If route = "agent", provide a concise normalized description of the

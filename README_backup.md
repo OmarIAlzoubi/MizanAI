@@ -52,31 +52,6 @@ flowchart TD
 That architectural separation is the heart of the project.
 
 ---
-# Product Preview
-
-MizanAI combines a financial dashboard, conversational financial reasoning, and multimodal transaction capture in one personal-finance experience.
-
-## Financial Dashboard
-
-A live overview of balance, spending, cash flow, daily activity, and financial categories.
-
-![MizanAI Financial Dashboard](docs/images/dashboard.png)
-
-## Context-Aware Financial Analysis
-
-MizanAI can preserve conversational context, investigate spending changes, and answer follow-up questions without requiring the user to restate the full financial context.
-
-![MizanAI Context-Aware Financial Analysis](docs/images/conversation-analysis.png)
-
-## WhatsApp Financial Assistant
-
-MizanAI can be used directly through WhatsApp for natural conversation, recording expenses and income, and sending receipt images. The vision pipeline extracts the merchant, total, and date, and can also identify how much of the receipt was actually paid before the transaction is passed into the normal financial write flow.
-
-<p align="center">
-  <img src="docs/images/whatsapp-receipt.png" alt="MizanAI WhatsApp Receipt Understanding" width="360">
-</p>
-
----
 
 # Engineering Highlights
 
@@ -824,6 +799,6 @@ You may view, use, modify, and distribute the software for permitted non-commerc
 
 **Commercial use of MizanAI, including commercial use of modified versions or derivative works based on this software, requires separate written permission from the copyright holder.**
 
-Copyright Â© 2026 Omar Al-Zoubi.
+Copyright © 2026 Omar Al-Zoubi.
 
 See [LICENSE](LICENSE) for the complete license terms.
