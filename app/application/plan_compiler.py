@@ -278,21 +278,11 @@ def _compile_query(
             p.end_date
         )
 
-    if p.days is not None:
-        period["days"] = p.days
-
-    if p.months is not None:
-        period["months"] = p.months
-
-    if p.start_date is not None:
-        period["start_date"] = (
-            p.start_date
-        )
-
-    if p.end_date is not None:
-        period["end_date"] = (
-            p.end_date
-        )
+    # Do not fabricate missing period fields here.
+    # PeriodSpec remains the deterministic validator.
+    # If a read-only LLM plan is malformed, UnderstandingService
+    # can safely route it to the Financial Agent instead of
+    # returning HTTP 500.
 
     comparison = None
 

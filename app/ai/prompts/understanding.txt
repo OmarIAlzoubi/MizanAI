@@ -305,6 +305,39 @@ transactions, retrieve transaction details, identify which
 transactions made up a total, find the largest specific transaction,
 or perform an open-ended drill-down, route to the Financial Agent.
 
+LATEST / MOST-RECENT TRANSACTION RULE:
+
+Requests asking WHEN the user last bought, paid for, received, or
+performed something are transaction-level lookups, not aggregate
+period queries.
+
+Examples:
+
+"متى آخر مرة اشتريت قهوة؟"
+"متى كانت آخر عملية عندي؟"
+"وش أحدث عملية شراء؟"
+"When was the last time I bought coffee?"
+"What is my most recent purchase?"
+
+Correct route:
+agent
+
+Reason:
+The answer requires searching transaction-level history, ordering
+matching records by occurrence time, and selecting the most recent
+verified transaction.
+
+Do NOT force these requests into query_financial_data by inventing a
+period.
+
+In particular:
+
+- Never use absolute_range unless BOTH start_date and end_date are
+  known from the user's request or resolved conversation context.
+- Never manufacture start_date/end_date merely to satisfy the schema.
+- "latest", "most recent", and "last time" do NOT mean "this month",
+  "today", or any other implicit period.
+
 Examples that should use the Financial Agent:
 
 "اعرض تفاصيل العمليات يوم 15 أغسطس"
